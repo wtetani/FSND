@@ -29,6 +29,7 @@ Our tech stack will include the following:
 You can download and install the dependencies mentioned above using `pip` as:
 ```
 pip install virtualenv
+pip install virtualenv
 pip install SQLAlchemy
 pip install postgres
 pip install Flask
