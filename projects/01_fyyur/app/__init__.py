@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-from .extensions import db, migrate
 import os
 
 def create_app(test_config=None):
@@ -17,6 +16,7 @@ def create_app(test_config=None):
       pass
    
    # initialize the app
+   from .extensions import db, migrate
    db.init_app(app)
    migrate.init_app(app, db)
 
@@ -25,7 +25,10 @@ def create_app(test_config=None):
    for blueprint in blueprints:
       app.register_blueprint(blueprint)
 
-   #app.add_url_rule('/', endpoint='index')
+   #import models
+   from .models import artist, show, venue
+
+   app.add_url_rule('/', endpoint='index')
    @app.route('/')
    def home():
      return render_template('pages/home.html')
