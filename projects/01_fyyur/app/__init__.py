@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import os
 
+
 def create_app(test_config=None):
    app = Flask(__name__, instance_relative_config=True)
 
@@ -16,8 +17,10 @@ def create_app(test_config=None):
       pass
    
    # initialize the app
-   from .extensions import db, migrate
+   from .extensions import db, migrate, session, sessionmaker
+
    db.init_app(app)
+   session = sessionmaker(db.get_engine())
    migrate.init_app(app, db)
 
    # Register my blueprints
@@ -28,7 +31,10 @@ def create_app(test_config=None):
    #import models
    from .models import artist, show, venue
 
-   app.add_url_rule('/', endpoint='index')
+   # session to be used
+   #Session = sessionmaker(db.get_engine())
+
+   #app.add_url_rule('/', endpoint='index')
    @app.route('/')
    def home():
      return render_template('pages/home.html')
